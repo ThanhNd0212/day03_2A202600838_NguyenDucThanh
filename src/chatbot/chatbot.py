@@ -3,6 +3,7 @@ import sys
 import json
 from typing import Any, Dict, List, Optional
 from dotenv import load_dotenv
+from openai import api_key
 
 # Allow running from project root
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -56,7 +57,7 @@ class UniversityRegistrationChatbot:
     def __init__(
         self,
         api_key: str = None,
-        model_name: str = "gemini-1.5-flash",
+        model_name: str = "gemini-2.5-flash-lite",
         llm: Optional[LLMProvider] = None,
         default_student_id: str = "2A202600713",
     ):
@@ -115,11 +116,14 @@ class UniversityRegistrationChatbot:
 def main():
     load_dotenv()
     api_key = os.getenv("GEMINI_API_KEY")
+    # Lấy thêm biến model name từ file .env, nếu không có thì dùng "gemini-2.5-flash-lite" làm mặc định
+    model_name = os.getenv("GEMINI_MODEL_NAME", "gemini-2.5-flash-lite")
+    
     if not api_key:
         print("Error: GEMINI_API_KEY not set in environment or .env file.")
         sys.exit(1)
 
-    chatbot = UniversityRegistrationChatbot(api_key=api_key)
+    chatbot = UniversityRegistrationChatbot(api_key=api_key, model_name=model_name)
 
     print("=" * 60)
     print("  VinUniversity — Course Registration Advisor")
