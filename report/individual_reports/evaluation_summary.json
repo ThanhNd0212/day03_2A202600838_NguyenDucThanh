@@ -1,0 +1,24 @@
+{
+  "cases": [
+    {
+      "name": "agent_v1_success",
+      "query": "Tôi muốn đăng ký môn AI và Data Science, kiểm tra còn chỗ không và học phí tổng cộng?",
+      "answer": "AI3010-01 and DATA3020-02 were registered successfully. For student 2A202600713, the estimated total tuition and fees are 19,150,000 VND.",
+      "uses_tools": true,
+      "tools": [
+        "check_slots",
+        "get_tuition",
+        "register"
+      ],
+      "success": true
+    },
+    {
+      "name": "agent_failure_trace",
+      "query": "Check AI course availability.",
+      "answer": "The first attempt failed because the agent hallucinated search_course. The fix is to use check_slots for availability.",
+      "uses_tools": true,
+      "success": false,
+      "reason": "Intentional hallucinated tool call demonstrates failure analysis."
+    }
+  ]
+}
